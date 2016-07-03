@@ -1,6 +1,6 @@
 package com.ddg.trydatabinding.dagger;
 
-import android.app.Application;
+import com.ddg.trydatabinding.App;
 
 import javax.inject.Singleton;
 
@@ -10,15 +10,15 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    Application mApp;
+    App mApp;
 
-    public AppModule(Application application) {
+    public AppModule(App application) {
         mApp = application;
     }
 
     @Provides
     @Singleton
-    Application providesApplication() {
+    App providesApplication() {
         return mApp;
     }
 }

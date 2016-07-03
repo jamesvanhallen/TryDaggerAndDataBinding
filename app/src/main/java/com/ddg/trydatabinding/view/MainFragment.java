@@ -29,7 +29,6 @@ public class MainFragment extends BaseFragment<ViewDataBinding> {
 
     @Inject
     RequestInterface api;
-    private FragmentMainBinding binding;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -40,18 +39,18 @@ public class MainFragment extends BaseFragment<ViewDataBinding> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        adapter = new AndroidAdapter();
+
+        binding.cardRecyclerView.setHasFixedSize(true);
+        binding.cardRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.cardRecyclerView.setAdapter(adapter);
         return  binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new AndroidAdapter();
-
-        binding.cardRecyclerView.setHasFixedSize(true);
-        binding.cardRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.cardRecyclerView.setAdapter(adapter);
 
         api.getAndroids()
                 .observeOn(uiScheduler)
