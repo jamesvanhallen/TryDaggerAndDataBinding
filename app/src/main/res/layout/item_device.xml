@@ -1,5 +1,4 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -20,31 +19,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
-        <TextView
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   android:src="@{device.url}"/>
 
-            android:text="@{device.name}"
-            android:id="@+id/ssss"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold" />
+       <LinearLayout android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:orientation="vertical">
 
-        <TextView
-            android:text="@{device.version}"
-            android:id="@+id/ssss2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+           <TextView
 
-        <TextView
-            android:text="@{device.api}"
-            android:id="@+id/ssss3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+               android:text="@{device.name}"
+               android:layout_marginTop="10dp"
+               android:layout_marginBottom="10dp"
+               android:textSize="18sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textStyle="bold" />
+
+           <TextView
+               android:text="@{device.version}"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <TextView
+               android:text="@{device.api}"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
 
     </LinearLayout>
 

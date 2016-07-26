@@ -1,6 +1,6 @@
 package com.ddg.trydatabinding.api;
 
-import com.ddg.trydatabinding.responce.AndroidResponse;
+import com.ddg.trydatabinding.response.AndroidResponse;
 
 import retrofit2.http.GET;
 import rx.Observable;

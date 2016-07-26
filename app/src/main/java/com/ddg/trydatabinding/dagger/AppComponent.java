@@ -1,6 +1,7 @@
 package com.ddg.trydatabinding.dagger;
 
 import com.ddg.trydatabinding.App;
+import com.ddg.trydatabinding.utils.BindingAdapterUtils;
 import com.ddg.trydatabinding.view.MainActivity;
 import com.ddg.trydatabinding.view.MainFragment;
 
@@ -15,5 +16,7 @@ public interface AppComponent {
     void inject(App app);
 
     void inject(MainFragment fragment);
+
+    void inject(BindingAdapterUtils adapterUtils);
 
 }

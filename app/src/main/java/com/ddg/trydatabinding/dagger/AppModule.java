@@ -1,6 +1,7 @@
 package com.ddg.trydatabinding.dagger;
 
 import com.ddg.trydatabinding.App;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 
@@ -20,5 +21,11 @@ public class AppModule {
     @Singleton
     App providesApplication() {
         return mApp;
+    }
+
+    @Provides
+    @Singleton
+    Picasso picasso (App application){
+        return Picasso.with(application);
     }
 }

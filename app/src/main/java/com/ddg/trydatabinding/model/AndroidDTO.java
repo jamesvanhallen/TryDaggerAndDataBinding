@@ -2,6 +2,8 @@ package com.ddg.trydatabinding.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class AndroidDTO {
 
     @SerializedName("ver")
@@ -12,6 +14,8 @@ public class AndroidDTO {
 
     @SerializedName("api")
     String api;
+
+    String url;
 
     public String getVersion() {
         return version;
@@ -33,7 +37,17 @@ public class AndroidDTO {
         return api;
     }
 
-    public void setApi(String api) {
-        this.api = api;
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public static void setFakeImage(List<AndroidDTO> list) {
+        for (AndroidDTO dto : list) {
+            dto.setUrl("http://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg");
+        }
     }
 }

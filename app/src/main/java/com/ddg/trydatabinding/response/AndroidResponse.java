@@ -1,4 +1,4 @@
-package com.ddg.trydatabinding.responce;
+package com.ddg.trydatabinding.response;
 
 import com.ddg.trydatabinding.model.AndroidDTO;
 import com.google.gson.annotations.SerializedName;

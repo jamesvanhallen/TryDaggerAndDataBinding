@@ -7,28 +7,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.ddg.trydatabinding.AndroidAdapter;
+import com.android.databinding.library.baseAdapters.BR;
 import com.ddg.trydatabinding.App;
 import com.ddg.trydatabinding.R;
 import com.ddg.trydatabinding.api.RequestInterface;
 import com.ddg.trydatabinding.databinding.FragmentMainBinding;
+import com.ddg.trydatabinding.databinding.ItemDeviceBinding;
 import com.ddg.trydatabinding.model.AndroidDTO;
-import com.ddg.trydatabinding.responce.AndroidResponse;
 import org.xelevra.architecture.base.BaseFragment;
-
+import org.xelevra.architecture.view.DataBindingRecyclerAdapter;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import rx.schedulers.Schedulers;
 
 public class MainFragment extends BaseFragment<ViewDataBinding> {
 
-    private AndroidAdapter adapter;
-
     @Inject
     RequestInterface api;
+    private FragmentMainBinding binding;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -39,13 +35,11 @@ public class MainFragment extends BaseFragment<ViewDataBinding> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
-        adapter = new AndroidAdapter();
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.cardRecyclerView.setHasFixedSize(true);
         binding.cardRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.cardRecyclerView.setAdapter(adapter);
-        return  binding.getRoot();
+
+        return binding.getRoot();
     }
 
     @Override
@@ -55,11 +49,17 @@ public class MainFragment extends BaseFragment<ViewDataBinding> {
         api.getAndroids()
                 .observeOn(uiScheduler)
                 .subscribeOn(Schedulers.computation())
-                .subscribe(new ViewSubscription<AndroidResponse>() {
+                .map(androidResponse -> {
+                    List<AndroidDTO> list = androidResponse.getAndroidsList();
+                    AndroidDTO.setFakeImage(list);
+                    return list;
+                })
+                .subscribe(new ViewSubscription<List<AndroidDTO>>() {
                     @Override
-                    public void onNext(AndroidResponse androidResponse) {
-                        List<AndroidDTO> list = androidResponse.getAndroidsList();
-                        adapter.setAndroids(list);
+                    public void onNext(List<AndroidDTO> list) {
+                        DataBindingRecyclerAdapter<AndroidDTO, ItemDeviceBinding> adapter =
+                                new DataBindingRecyclerAdapter<>(list, R.layout.item_device, BR.device);
+                        binding.cardRecyclerView.setAdapter(adapter);
                     }
                 });
     }
